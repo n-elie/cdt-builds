@@ -250,6 +250,14 @@ libglvnd-egl:
   skipped_cdts:
     - cos6-x86_64
   license_file: licenses/libglvnd-license
+  build_append:
+    all: |
+      pushd ${SYSROOT_DIR}/usr/lib64 > /dev/null 2>&1
+      libegl_file=$(find . -maxdepth 1 -name "libEGL.so.*.*.*")
+      libegl_file=$(basename ${libegl_file})
+      ln -fs ${libegl_file} libEGL.so
+      ls -lah .
+      popd > /dev/null 2>&1
 libglvnd-gles:
   custom: false
   skipped_cdts:
